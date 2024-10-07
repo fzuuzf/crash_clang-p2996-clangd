@@ -1,0 +1,17 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "x64_clang++-p2996",
+            "displayName": "clang-p2996",
+            "description": "experimental",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "CMAKE_C_COMPILER": "/opt/clang-p2996/clang-p2996/bin/clang",
+                "CMAKE_CXX_COMPILER": "/opt/clang-p2996/clang-p2996/bin/clang++",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ]
+}

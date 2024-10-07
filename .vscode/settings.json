@@ -1,0 +1,4 @@
+{
+        "clangd.path": "/opt/clang-p2996/clang-p2996/bin/clangd",
+        "workbench.localHistory.enabled": false
+}

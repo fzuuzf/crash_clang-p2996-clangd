@@ -1,0 +1,71 @@
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace.
+Stack dump:
+0.	/tmp/clang-p2996-test/Img.cpp:28:12: current parser token ';'
+1.	/tmp/clang-p2996-test/Img.cpp:26:1: parsing struct/union/class body 'Test'
+2.	/tmp/clang-p2996-test/Img.cpp:27:12: parsing function body 'Test::Test'
+3.	/tmp/clang-p2996-test/Img.cpp:27:12: in compound statement ('{}')
+4.	/tmp/clang-p2996-test/header.h:35:26: instantiating class definition 'template_using_expand<Img>'
+5.	/tmp/clang-p2996-test/header.h:37:23: instantiating function definition 'template_using_expand<Img>::cem'
+ #0 0x00005949b4306368 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/opt/clang-p2996/clang-p2996/bin/clangd+0x1814368)
+ #1 0x00005949b430429e llvm::sys::RunSignalHandlers() (/opt/clang-p2996/clang-p2996/bin/clangd+0x181229e)
+ #2 0x00005949b4306cc8 SignalHandler(int) Signals.cpp:0:0
+ #3 0x00007bfabb245320 (/lib/x86_64-linux-gnu/libc.so.6+0x45320)
+ #4 0x00005949b47ca74e clang::TemplateArgument::isPackExpansion() const (/opt/clang-p2996/clang-p2996/bin/clangd+0x1cd874e)
+ #5 0x00005949b534b7bf bool clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformTemplateArguments<clang::TemplateArgumentLoc const*>(clang::TemplateArgumentLoc const*, clang::TemplateArgumentLoc const*, clang::TemplateArgumentListInfo&, bool) SemaTemplateInstantiate.cpp:0:0
+ #6 0x00005949b53a0dbb clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformCXXSpliceExpr(clang::CXXSpliceExpr*) SemaTemplateInstantiate.cpp:0:0
+ #7 0x00005949b534a6d1 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformStmt(clang::Stmt*, clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::StmtDiscardKind) SemaTemplateInstantiate.cpp:0:0
+ #8 0x00005949b53a5d31 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformCompoundStmt(clang::CompoundStmt*, bool) SemaTemplateInstantiate.cpp:0:0
+ #9 0x00005949b534a66a clang::Sema::SubstStmt(clang::Stmt*, clang::MultiLevelTemplateArgumentList const&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x285866a)
+#10 0x00005949b53de576 clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x28ec576)
+#11 0x00005949b4b08a1f clang::Sema::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/opt/clang-p2996/clang-p2996/bin/clangd+0x2016a1f)
+#12 0x00005949b5295125 clang::Sema::DeduceReturnType(clang::FunctionDecl*, clang::SourceLocation, bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x27a3125)
+#13 0x00005949b4bcc3e6 clang::Sema::DiagnoseUseOfDecl(clang::NamedDecl*, llvm::ArrayRef<clang::SourceLocation>, clang::ObjCInterfaceDecl const*, bool, bool, clang::ObjCInterfaceDecl*, bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x20da3e6)
+#14 0x00005949b4bd9a15 clang::Sema::BuildDeclarationNameExpr(clang::CXXScopeSpec const&, clang::DeclarationNameInfo const&, clang::NamedDecl*, clang::NamedDecl*, clang::TemplateArgumentListInfo const*, bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x20e7a15)
+#15 0x00005949b53acf17 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformDeclRefExpr(clang::DeclRefExpr*) SemaTemplateInstantiate.cpp:0:0
+#16 0x00005949b539fec1 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformCallExpr(clang::CallExpr*) SemaTemplateInstantiate.cpp:0:0
+#17 0x00005949b534cab4 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformExprs(clang::Expr* const*, unsigned int, bool, llvm::SmallVectorImpl<clang::Expr*>&, bool*) SemaTemplateInstantiate.cpp:0:0
+#18 0x00005949b539e670 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformInitListExpr(clang::InitListExpr*) SemaTemplateInstantiate.cpp:0:0
+#19 0x00005949b53490b5 clang::Sema::SubstInitializer(clang::Expr*, clang::MultiLevelTemplateArgumentList const&, bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x28570b5)
+#20 0x00005949b53db3d6 clang::Sema::InstantiateVariableInitializer(clang::VarDecl*, clang::VarDecl*, clang::MultiLevelTemplateArgumentList const&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x28e93d6)
+#21 0x00005949b53cfe99 clang::Sema::BuildVariableInstantiation(clang::VarDecl*, clang::VarDecl*, clang::MultiLevelTemplateArgumentList const&, llvm::SmallVector<clang::Sema::LateInstantiatedAttribute, 16u>*, clang::DeclContext*, clang::LocalInstantiationScope*, bool, clang::VarTemplateSpecializationDecl*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x28dde99)
+#22 0x00005949b53cf6ce clang::TemplateDeclInstantiator::VisitVarDecl(clang::VarDecl*, bool, llvm::ArrayRef<clang::BindingDecl*>*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x28dd6ce)
+#23 0x00005949b5347db2 clang::Sema::InstantiateClass(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind, bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x2855db2)
+#24 0x00005949b5349cd6 clang::Sema::InstantiateClassTemplateSpecialization(clang::SourceLocation, clang::ClassTemplateSpecializationDecl*, clang::TemplateSpecializationKind, bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x2857cd6)
+#25 0x00005949b54542be void llvm::function_ref<void ()>::callback_fn<clang::Sema::RequireCompleteTypeImpl(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser*)::$_0>(long) SemaType.cpp:0:0
+#26 0x00005949b4b08a1f clang::Sema::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/opt/clang-p2996/clang-p2996/bin/clangd+0x2016a1f)
+#27 0x00005949b5443c66 clang::Sema::RequireCompleteTypeImpl(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x2951c66)
+#28 0x00005949b544344f clang::Sema::RequireCompleteType(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x295144f)
+#29 0x00005949b54441e3 clang::Sema::RequireCompleteType(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, unsigned int) (/opt/clang-p2996/clang-p2996/bin/clangd+0x29521e3)
+#30 0x00005949b4b3060e clang::Sema::ActOnUninitializedDecl(clang::Decl*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x203e60e)
+#31 0x00005949b6ebea61 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x43cca61)
+#32 0x00005949b6ebcccd clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x43caccd)
+#33 0x00005949b6ebc0ea clang::Parser::ParseSimpleDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, bool, clang::Parser::ForRangeInit*, clang::SourceLocation*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x43ca0ea)
+#34 0x00005949b6ebb9f8 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x43c99f8)
+#35 0x00005949b6efed67 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 32u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x440cd67)
+#36 0x00005949b6efd2d4 clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 32u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x440b2d4)
+#37 0x00005949b6f04e61 clang::Parser::ParseCompoundStatementBody(bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x4412e61)
+#38 0x00005949b6f05c7a clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x4413c7a)
+#39 0x00005949b6f205f1 clang::Parser::ParseLexedMethodDef(clang::Parser::LexedMethod&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x442e5f1)
+#40 0x00005949b6f1f3aa clang::Parser::ParseLexedMethodDefs(clang::Parser::ParsingClass&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x442d3aa)
+#41 0x00005949b6ea6500 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x43b4500)
+#42 0x00005949b6ea4592 clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x43b2592)
+#43 0x00005949b6ec093e clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::Parser::LateParsedAttrList*, clang::ImplicitTypenameContext) (/opt/clang-p2996/clang-p2996/bin/clangd+0x43ce93e)
+#44 0x00005949b6e6ac4e clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) (/opt/clang-p2996/clang-p2996/bin/clangd+0x4378c4e)
+#45 0x00005949b6e6a9a0 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) (/opt/clang-p2996/clang-p2996/bin/clangd+0x43789a0)
+#46 0x00005949b6e69d1d clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) (/opt/clang-p2996/clang-p2996/bin/clangd+0x4377d1d)
+#47 0x00005949b6e68596 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/opt/clang-p2996/clang-p2996/bin/clangd+0x4376596)
+#48 0x00005949b6e64cce clang::ParseAST(clang::Sema&, bool, bool) (/opt/clang-p2996/clang-p2996/bin/clangd+0x4372cce)
+#49 0x00005949b6c5d6a6 clang::FrontendAction::Execute() (/opt/clang-p2996/clang-p2996/bin/clangd+0x416b6a6)
+#50 0x00005949b566f7be clang::clangd::ParsedAST::build(llvm::StringRef, clang::clangd::ParseInputs const&, std::unique_ptr<clang::CompilerInvocation, std::default_delete<clang::CompilerInvocation>>, llvm::ArrayRef<clang::clangd::Diag>, std::shared_ptr<clang::clangd::PreambleData const>) (/opt/clang-p2996/clang-p2996/bin/clangd+0x2b7d7be)
+#51 0x00005949b5714b6e clang::clangd::(anonymous namespace)::ASTWorker::generateDiagnostics(std::unique_ptr<clang::CompilerInvocation, std::default_delete<clang::CompilerInvocation>>, clang::clangd::ParseInputs, std::vector<clang::clangd::Diag, std::allocator<clang::clangd::Diag>>) TUScheduler.cpp:0:0
+#52 0x00005949b5717f62 void llvm::detail::UniqueFunctionBase<void>::CallImpl<clang::clangd::(anonymous namespace)::ASTWorker::update(clang::clangd::ParseInputs, clang::clangd::WantDiagnostics, bool)::$_0>(void*) TUScheduler.cpp:0:0
+#53 0x00005949b5710eac clang::clangd::(anonymous namespace)::ASTWorker::runTask(llvm::StringRef, llvm::function_ref<void ()>) TUScheduler.cpp:0:0
+#54 0x00005949b5710908 void llvm::detail::UniqueFunctionBase<void>::CallImpl<clang::clangd::(anonymous namespace)::ASTWorker::create(llvm::StringRef, clang::clangd::GlobalCompilationDatabase const&, clang::clangd::TUScheduler::ASTCache&, clang::clangd::TUScheduler::HeaderIncluderCache&, clang::clangd::AsyncTaskRunner*, clang::clangd::Semaphore&, clang::clangd::TUScheduler::Options const&, clang::clangd::ParsingCallbacks&)::$_0>(void*) TUScheduler.cpp:0:0
+#55 0x00005949b5876272 void* llvm::thread::ThreadProxy<std::tuple<clang::clangd::AsyncTaskRunner::runAsync(llvm::Twine const&, llvm::unique_function<void ()>)::$_1>>(void*) Threading.cpp:0:0
+#56 0x00007bfabb29ca94 start_thread ./nptl/pthread_create.c:447:8
+#57 0x00007bfabb329c3c clone3 ./misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:80:0
+Signalled during AST worker action: Update
+  Filename: /tmp/clang-p2996-test/Img.cpp
+  Directory: /tmp/clang-p2996-test/out/build/x64_clang++-p2996
+  Command Line: /opt/clang-p2996/clang-p2996/bin/clang++ --driver-mode=g++ -freflection-latest -std=c++26 -g -o CMakeFiles/clang-p2996-test.dir/Img.cpp.o -c -resource-dir=/opt/clang-p2996/clang-p2996/lib/clang/20 -- /tmp/clang-p2996-test/Img.cpp
+  Version: 1446
